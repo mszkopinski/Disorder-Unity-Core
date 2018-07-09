@@ -1,17 +1,17 @@
-﻿namespace Disorder.Unity.Core
+﻿namespace UnityCore
 {
-    /// <summary>
-    /// It is finite state machine basically but with cool name
-    /// </summary>
-    public class StateMachine
+    public class FiniteStateMachine
     {
         public IState CurrentState { get; private set; }
 
         IState previousState;
 
-        /// <summary>
-        /// Enters new state. If there was a running activity assign it to previous
-        /// </summary>
+        public FiniteStateMachine(IState initialState = null)
+        {
+            if (initialState != null)
+                EnterState(initialState);
+        }
+
         public void EnterState(IState newState)
         {
             if (CurrentState != null)
@@ -19,32 +19,15 @@
                 CurrentState.Exit();
                 previousState = CurrentState;
             }
+
             CurrentState = null;
             CurrentState = newState;
             CurrentState.Enter();
         }
 
-        /// <summary>
-        /// Executes current activity
-        /// </summary>
         public void ExecuteCurrentState()
         {
-            IState state = CurrentState;
-
-            state?.Execute();
-        }
-
-        /// <summary>
-        /// Restores previous activity if there was one
-        /// </summary>
-        public void RestorePreviousState()
-        {
-            if (previousState != null)
-            {
-                CurrentState.Exit();
-                CurrentState = previousState;
-                CurrentState.Enter();
-            }
+            CurrentState?.Execute();
         }
 
         public void ExitCurrentState()
@@ -57,6 +40,16 @@
             else
             {
                 RestorePreviousState();
+            }
+        }
+
+        public void RestorePreviousState()
+        {
+            if (previousState != null)
+            {
+                CurrentState.Exit();
+                CurrentState = previousState;
+                CurrentState.Enter();
             }
         }
     }

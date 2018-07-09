@@ -4,7 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Disorder.Unity.Core
+namespace UnityCore
 {
     public class XmlSerializationProvider : IXmlSerializationProvider
     {

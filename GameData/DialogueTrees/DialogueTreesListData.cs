@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Disorder.Unity.Core
+namespace UnityCore
 {
     [XmlInclude(typeof(DialogueTreeData))]
     [XmlRoot("trees")]

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Disorder.Unity.Core
+namespace UnityCore
 {
     public static class XmlUtils
     {     

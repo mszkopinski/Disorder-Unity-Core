@@ -1,4 +1,4 @@
-﻿namespace Disorder.Unity.Core
+﻿namespace UnityCore
 {
     public interface ISerializable {}
 }
