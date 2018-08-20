@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace UnityCore
 {
-    public class PublisherSubscriber : IEventService
+    public class PubSubService : IEventService
     {
         public IDictionary<string, List<Action<object>>> Messages { get; private set; }
 
-        public PublisherSubscriber()
+        public PubSubService()
         {
             Messages = new Dictionary<string, List<Action<object>>>();
         }

@@ -4,24 +4,36 @@ namespace UnityCore
 {
     public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        static T _instance;
+        static readonly object locker = new object();
 
         public static T Instance
         {
             get
             {
-                if (_instance == null)
+                lock (locker)
                 {
-                    _instance = FindObjectOfType(typeof(T)) as T;
-
                     if (_instance == null)
                     {
-                        Debug.LogError("instance of " + typeof(T) + " is needed in the scene.");
-                    }
-                }
+                        _instance = (T)FindObjectOfType(typeof(T));
 
-                return _instance;
+                        if (FindObjectsOfType(typeof(T)).Length > 1)
+                        {
+                            return _instance;
+                        }
+
+                        if (_instance == null)
+                        {
+                            var go = new GameObject { name = $"(singleton) {typeof(T)}" };
+                            _instance = go.AddComponent<T>();
+                            DontDestroyOnLoad(go);
+                        }
+                    }
+
+                    return _instance;
+                }
             }
         }
+
+        static T _instance;
     }
 }

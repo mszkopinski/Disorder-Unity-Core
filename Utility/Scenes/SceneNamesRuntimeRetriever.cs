@@ -27,7 +27,7 @@ namespace UnityCore
             }
         }
 
-        [MenuItem("SceneManagement/Serialize Build Scenes")]
+        [MenuItem("Scenes/Serialize Build Scenes")]
         static void GetSceneNames()
         {
             EditorBuildSettingsScene[] scenes = EditorBuildSettings.scenes;
